@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add Service</title>
+<meta charset="ISO-8859-1">
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<link
+	href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
+	rel='stylesheet'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+	<form name="departmentForm" th:object="${departmentForm}" th:action="@{/createdepartment}" method="post" >
+
+		<!--HIDDEN FIELDS START  -->
+		<input type="hidden" th:field="${departmentForm.methodType}" id="methodType" name="methodType"> 
+		<input	type="hidden" th:field="${departmentForm.departmentId}" id="departmentId" name="departmentId">
+		<!--HIDDEN FIELDS ENDS  -->
+
+		<div class="panel panel-primary" style="margin-left: 15px;">
+			<h1 class="text-success" style="display: inline; font-size: xx-large;">Add Department
+			
+			<a th:href="@{/searchdepartment}"
+			class="btn btn-info btn-lg float-right" style="margin-right:1450px">Home</a>
+			</h1>
+			
+			<hr><br>
+
+			<div class="panel-body">
+				<div class="form-group">
+				
+				
+					<div class="form-group">
+						<label>Department Name:</label><br> <input
+							th:field="${departmentForm.departmentName}" required
+							maxlength="100" type="text"
+							placeholder="Enter departmentName" style="width: 450px;"
+							name="departmentName" id=" departmentName"
+							class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label>Department Description:</label><br> <input
+							th:field="${departmentForm.departmentDescription}" onblur="validateDescription(this)" required
+							maxlength="100" type="text"
+							placeholder="Enter departmentDescription" style="width: 450px;"
+							name="departmentDescription" id=" departmentDescription"
+							class="form-control">
+					</div>
+					
+				
+					
+					<br>
+					<br>
+
+					<div class="text-success">
+						<h4>
+							<span th:utext="${departmentForm.successMessage}"></span>
+					</div>
+					<div class="text-danger">
+						<h4>
+							<span th:utext="${departmentForm.errorMessage}"></span>
+					</div>
+					<button class="btn btn-success  btn-lg" type="submit">Save</button>
+
+
+					</select>
+				</div>
+			</div>
+	</form>
+</body>
+</html>
+
+<script>
+/* function validateDescription(emailField){
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+    if (reg.test(emailField.value) == false) 
+    {
+        alert('Invalid Description Address');
+        return false;
+    }
+
+    return true;
+
+} */
+</script>

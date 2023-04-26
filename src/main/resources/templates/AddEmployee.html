@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Add Service</title>
+<meta charset="ISO-8859-1">
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<!-- 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<link
+	href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
+	rel='stylesheet'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+<body>
+	<form name="employeeForm" th:object="${employeeForm}" th:action="@{/createemployee}" method="post" >
+
+		<!--HIDDEN FIELDS START  -->
+		<input type="hidden" th:field="${employeeForm.methodType}" id="methodType" name="methodType"> 
+		<input	type="hidden" th:field="${employeeForm.employeeId}" id="employeeId" name="employeeId">
+		<!--HIDDEN FIELDS ENDS  -->
+
+		<div class="panel panel-primary" style="margin-left: 15px;">
+			<h1 class="text-success" style="display: inline; font-size: xx-large;">Add Employee
+			
+			<a th:href="@{/searchemployee}"
+			class="btn btn-info btn-lg float-right" style="margin-right:1450px">Home</a>
+			</h1>
+			
+			<hr><br>
+
+			<div class="panel-body">
+				<div class="form-group">
+				
+				
+					<div class="form-group">
+						<label>Employee Name:</label><br> <input
+							th:field="${employeeForm.employeeName}" required
+							maxlength="100" type="text"
+							placeholder="Enter employeeName" style="width: 450px;"
+							name="employeeName" id=" employeeName"
+							class="form-control">
+					</div>
+					
+					<div class="form-group">
+						<label>Employee Description:</label><br> <input
+							th:field="${employeeForm.employeeDescription}" onblur="validateDescription(this)" required
+							maxlength="100" type="text"
+							placeholder="Enter employeeDescription" style="width: 450px;"
+							name="employeeDescription" id=" employeeDescription"
+							class="form-control">
+					</div>
+					
+				
+					
+					<br>
+					<br>
+
+					<div class="text-success">
+						<h4>
+							<span th:utext="${employeeForm.successMessage}"></span>
+					</div>
+					<div class="text-danger">
+						<h4>
+							<span th:utext="${employeeForm.errorMessage}"></span>
+					</div>
+					<button class="btn btn-success  btn-lg" type="submit">Save</button>
+
+
+					</select>
+				</div>
+			</div>
+	</form>
+</body>
+</html>
+
+<script>
+/* function validateDescription(emailField){
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+    if (reg.test(emailField.value) == false) 
+    {
+        alert('Invalid Description Address');
+        return false;
+    }
+
+    return true;
+
+} */
+</script>

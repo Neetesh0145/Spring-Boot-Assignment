@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+
+</head>
+<body>
+	<form name="employeeForm" th:object="${employeeForm}"
+		th:action="@{/searchemployee}" method="post" style="margin-left:15px;margin-right:355px" >
+
+			<div class="panel panel-primary" style="margin-top: 50px;">
+				<div class="panel-heading">
+					<div id="main">
+						<h1 style="font-size: xx-large;">
+							Employee Search 
+							<a th:target="_blank" th:href="@{/addemployee}" class="btn btn-success btn-lg float-right">Add Employee</a>
+							<hr>
+					</div>
+				</div>
+
+				 <div class="panel-body">
+					
+				<div class="row">
+			    <div class="col">	
+				<div class="form-group">
+						<label for="employeeName">Employee Name
+							:</label><br> <input type="text" style="width: 450px;"
+							placeholder="Enter EmployeeName"
+							th:field="${employeeForm.employeeName}"
+							name="employeeName" id="employeeName"
+							class="form-control">
+					</div>
+				
+				<div class="form-group">
+						<label for="employeeDescription">Employee Description
+							:</label><br> <input type="text" style="width: 450px;"
+							placeholder="Enter employeeDescription"
+							th:field="${employeeForm.employeeDescription}"
+							name="employeeDescription" id="employeeDescription"
+							class="form-control">
+					</div>
+				
+				</div>
+					</div>
+					<button class="btn btn-primary float-right btn-lg" type="submit">Search</button>
+					<br><br><br><br>
+			</div>
+			</div>
+
+			<div class="panel-heading">
+				<div class="text-success">
+					<h4>
+						<span th:utext="${employeeForm.successMessage}"></span>
+				</div>
+				<div class="text-danger">
+					<h4>
+						<span th:utext="${employeeForm.errorMessage}"></span>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h1 style="font-size: xx-large; text-shadow: black;">Employee List</h1>
+						<hr>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped table-bordered table-hover">
+							<thead class="thead-dark">
+
+								<tr>
+									<th>Employee Name</th>
+									<th>Employee Description</th>
+									<th>Delete</th>
+									<th>Update</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr th:each="ml:${employeeList}">
+									<td th:text="${ml.employeeName}" style="font-size: medium;"></td>
+									<td th:text="${ml.employeeDescription}" style="font-size: medium;"></td>
+									
+									<td><a th:href="@{/employeeDelete/{employeeId}(employeeId=${ml.employeeId})}"
+										class="btn btn-danger" style="color: white;">Delete</a></td>
+									
+									<td><a th:target="_blank" th:href="@{/employeeEdit/{employeeId}(employeeId=${ml.employeeId})}"
+										class="btn btn-info" style="color: white;">Update</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div> 
+	</form>
+</body>
+</html>
+
+
