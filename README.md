@@ -42,3 +42,10 @@ INSERT INTO `ems`.`departmentmstr` (`departmentId`, `departmentName`, `departmen
 
 INSERT INTO `ems`.`employeemstr` (`employeeId`, `employeeName`, `departmentId`, `activeStatus`) VALUES ('100', 'Lin Dan', '1', 'Y');
 
+
+![image](https://user-images.githubusercontent.com/54933094/234463092-599635e8-f245-436d-9df3-6fcc43c3a45a.png)
+![image](https://user-images.githubusercontent.com/54933094/234463112-a5313a5c-beed-4793-a2c6-5ff54e08aaa5.png)
+![image](https://user-images.githubusercontent.com/54933094/234463134-c5bc550f-4591-4707-8b5b-fbeeb32e3b2b.png)
+
+
+
