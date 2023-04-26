@@ -1,5 +1,5 @@
 # Spring-Boot-Assignment
-Assignment 1 - spring + spring data jpa + hibernate + thymleaf + mysql
+Assignment 1 - spring crud apis + spring data jpa + hibernate + thymleaf + mysql
 
 Assignment 2 - spring + spring security
 
