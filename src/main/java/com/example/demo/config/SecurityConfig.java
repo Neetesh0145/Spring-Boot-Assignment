@@ -29,13 +29,15 @@ public class SecurityConfig {
 	*/
 	
 	
-	@Bean 
+	/*@Bean 
 	public SecurityFilterChain securityFilterChain(HttpSecurity
 			httpSecurity) throws Exception{
 
 		httpSecurity .authorizeHttpRequests( (requests) ->requests
 				.requestMatchers("/homepage","homepage").permitAll()
 				.requestMatchers("/department","department").permitAll()
+				.requestMatchers("/searchdepartment","searchdepartment").permitAll()
+				.requestMatchers("/searchemployee","searchemployee").permitAll()
 				.requestMatchers("/employee","employee").permitAll()
 				.anyRequest().authenticated()); return httpSecurity.build(); 
 	}
@@ -52,4 +54,5 @@ public class SecurityConfig {
 		PasswordEncoder encoder=PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		return encoder;
 	}
+	*/
 }

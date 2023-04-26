@@ -41,29 +41,20 @@ public class DepartmentController {
 		return mv;
 	}
 	
+	
 	@RequestMapping(value = { "/searchdepartment" }, method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView searchDepartment(Model model,
 			@ModelAttribute("departmentForm") DepartmentForm departmentForm, Principal principal) {
-	
 
 		ModelAndView mv = new ModelAndView("Department");
-		
 		try {
-			//search
-			List<Department> departmentList=departmentService.findDepartment(
-					
-					"%" + (departmentForm.getDepartmentName() == null || departmentForm.getDepartmentName().equals("") ? ""
-							: departmentForm.getDepartmentName().trim()) + "%",
-					
-					"%" + (departmentForm.getDepartmentDescription() == null || departmentForm.getDepartmentDescription().equals("") ? ""
-							: departmentForm.getDepartmentDescription().trim()) + "%"
-					);
+			List<Department> departmentList=departmentService.findDepartment(departmentForm.getDepartmentName(),
+					departmentForm.getDepartmentDescription());
 			model.addAttribute("departmentList",departmentList);
 			
 			if(departmentList!=null && departmentList.isEmpty()) {
 				departmentForm.setErrorMessage("No search data found");
 			}
-			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,12 +67,9 @@ public class DepartmentController {
 			@ModelAttribute("departmentForm") DepartmentForm departmentForm, Principal principal) {
 	
 		ModelAndView mv = new ModelAndView("AddDepartment");
-		
 		departmentForm.setMethodType("add");
-		
 		return mv;
 	}
-	
 	
 	
 	
@@ -92,8 +80,6 @@ public class DepartmentController {
 	{
 		
 		ModelAndView mv = new ModelAndView("AddDepartment");
-	
-		
 		Department department = null;
 		Optional<Department> departmentOptional = departmentService.findDepartmentId(departmentId);
 		
@@ -105,6 +91,7 @@ public class DepartmentController {
 		departmentForm.setMethodType("update");
 		departmentForm.setDepartmentId(departmentId.toString());
 		return mv;
+		
 	}
 	
 	
@@ -115,29 +102,9 @@ public class DepartmentController {
 	{
 	
 		ModelAndView mv = new ModelAndView("Department");
-		
-		Department department = null;
-		Optional<Department> departmentOptional = departmentService.findDepartmentId(departmentId);
-		
-		if (departmentOptional.isPresent()) {
-			department = departmentOptional.get();
-			department.setActiveStatus("N");
-			departmentService.saveDepartment(department);
-	
-			departmentForm.setSuccessMessage("Deleted  sucessfully !.");
-		} 
-		//search
-		/*List<Department> departmentList=departmentService.findDepartment(
-			
-				"%" + (departmentForm.getDepartmentName() == null || departmentForm.getDepartmentName().equals("") ? ""
-						: departmentForm.getDepartmentName().trim()) + "%",
-				
-				"%" + (departmentForm.getDepartmentDescription() == null || departmentForm.getDepartmentDescription().equals("") ? ""
-						: departmentForm.getDepartmentDescription().trim()) + "%"
-				
-				);*/
-		List<Department> departmentList=departmentService.findActiveDepartment();
-		model.addAttribute("departmentList",departmentList);
+		departmentService.departmentDelete(departmentId);
+		departmentForm.setSuccessMessage("Deleted  sucessfully !.");
+		model.addAttribute("departmentList",departmentService.findActiveDepartment());
 		return mv;
 	}
 	
@@ -148,67 +115,47 @@ public class DepartmentController {
 			@ModelAttribute("departmentForm") DepartmentForm departmentForm, Principal principal) {
 
 	
-		ModelAndView mv = new ModelAndView("Department");
 	
+		ModelAndView mv = departmentService.createAndUpdateDepartment(departmentForm, model);
 		try {
-			if(departmentForm.getMethodType()!=null && departmentForm.getMethodType().equalsIgnoreCase("add")) {
-			
-				Department department= new Department();
-				department.setDepartmentName(departmentForm.getDepartmentName());
-				department.setDepartmentDescription(departmentForm.getDepartmentDescription());
-				
-				department.setActiveStatus("Y");
-				departmentService.saveDepartment(department);
-				
-				departmentForm.setSuccessMessage("Department Created Successfully");
-				//setting id after save
-				departmentForm.setDepartmentId(department.getDepartmentId().toString());
-				
-				//search
-				/*List<Department> departmentList=departmentService.findDepartment(
-						
-						"%" + (departmentForm.getDepartmentName() == null || departmentForm.getDepartmentName().equals("") ? ""
-								: departmentForm.getDepartmentName().trim()) + "%",
-						
-						"%" + (departmentForm.getDepartmentDescription() == null || departmentForm.getDepartmentDescription().equals("") ? ""
-								: departmentForm.getDepartmentDescription().trim()) + "%"						
-						);
-				*/
-				List<Department> departmentList=departmentService.findActiveDepartment();
-				model.addAttribute("departmentList",departmentList);
-				
-			}
-			
-			
-			//UPDATE
-			if(departmentForm.getMethodType()!=null && departmentForm.getMethodType().equalsIgnoreCase("update") )
-			{
-				Department department = null;
-				Optional<Department> departmentOptional = departmentService.findDepartmentId(new Integer(departmentForm.getDepartmentId()));
-				
-				if (departmentOptional.isPresent()) {
-					department=departmentOptional.get();
-					department.setDepartmentName(departmentForm.getDepartmentName());
-					department.setDepartmentDescription(departmentForm.getDepartmentDescription());
-					departmentService.saveDepartment(department);
-					
-					
-					//search
-					/*List<Department> departmentList=departmentService.findDepartment(
-							
-							"%" + (departmentForm.getDepartmentName() == null || departmentForm.getDepartmentName().equals("") ? ""
-									: departmentForm.getDepartmentName().trim()) + "%",
-							
-							"%" + (departmentForm.getDepartmentDescription() == null || departmentForm.getDepartmentDescription().equals("") ? ""
-									: departmentForm.getDepartmentDescription().trim()) + "%"
-							);*/
-					List<Department> departmentList=departmentService.findActiveDepartment();
-					model.addAttribute("departmentList",departmentList);
-					departmentForm.setSuccessMessage("Update sucessfully !.");
-					departmentForm.setMethodType("update");
-				}
-			} 
-		return mv;
+//			if(departmentForm.getMethodType()!=null && departmentForm.getMethodType().equalsIgnoreCase("add")) {
+//			
+//				Department department= new Department();
+//				department.setDepartmentName(departmentForm.getDepartmentName());
+//				department.setDepartmentDescription(departmentForm.getDepartmentDescription());
+//				
+//				department.setActiveStatus("Y");
+//				departmentService.saveDepartment(department);
+//				
+//				departmentForm.setSuccessMessage("Department Created Successfully");
+//				//setting id after save
+//				departmentForm.setDepartmentId(department.getDepartmentId().toString());
+//				
+//			
+//				List<Department> departmentList=departmentService.findActiveDepartment();
+//				model.addAttribute("departmentList",departmentList);
+//				
+//			}
+//			
+//			
+//			//UPDATE
+//			if(departmentForm.getMethodType()!=null && departmentForm.getMethodType().equalsIgnoreCase("update") )
+//			{
+//				Department department = null;
+//				Optional<Department> departmentOptional = departmentService.findDepartmentId(new Integer(departmentForm.getDepartmentId()));
+//				
+//				if (departmentOptional.isPresent()) {
+//					department=departmentOptional.get();
+//					department.setDepartmentName(departmentForm.getDepartmentName());
+//					department.setDepartmentDescription(departmentForm.getDepartmentDescription());
+//					departmentService.saveDepartment(department);
+//					
+//					List<Department> departmentList=departmentService.findActiveDepartment();
+//					model.addAttribute("departmentList",departmentList);
+//					departmentForm.setSuccessMessage("Update sucessfully !.");
+//					departmentForm.setMethodType("update");
+//				}
+//			} 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
